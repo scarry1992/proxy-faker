@@ -1,0 +1,8 @@
+proxy:
+  image: scarry92/proxy-faker
+#  build: .
+  ports:
+    - "8080:8080"
+  volumes:
+    - c:/dev/projects/proxy-faker:/usr/src/proxy
+  entrypoint: npm start
