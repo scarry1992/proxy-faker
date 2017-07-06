@@ -26,8 +26,6 @@ async function getCache(data) {
     }
 
     if ( !files.includes(`${name}.${ext}`) ) {
-        console.log(`in ${pathToDir} file ${name}.${ext} does not exist`);
-        console.log(`Creating a file ${name}.${ext}...`);
         let stream = await fs.createWriteStream(path.join(pathToDir, `${name}.${ext}`));
         stream.write(body.toString());
         stream.end();
