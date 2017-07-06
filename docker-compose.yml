@@ -7,16 +7,16 @@ services:
     ports:
       - "80:80"
     volumes:
-      #for windows- c:/dev/projects/proxy-faker:/usr/src/proxy
-      - /home/scarry-dev/dev/projects/proxy-faker:/usr/src/proxy
-    networks:
-          static-network:
-            ipv4_address: 172.20.128.2
+      - c:/dev/projects/proxy-faker:/usr/src/proxy #for windows
+      #- /home/scarry-dev/dev/projects/proxy-faker:/usr/src/proxy #for linux
+#    networks: #for linux
+#          static-network:
+#            ipv4_address: 172.20.128.2
     entrypoint: npm start
 
-networks:
-  static-network:
-      ipam:
-        config:
-          - subnet: 172.20.0.0/16
-            ip_range: 172.28.5.0/24
+#networks: #for linux
+#  static-network:
+#      ipam:
+#        config:
+#          - subnet: 172.20.0.0/16
+#            ip_range: 172.28.5.0/24

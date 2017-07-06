@@ -1,5 +1,5 @@
 const PROXY_HOST = {
-    protocol: "https",
+    protocol: "http",
     host: "google.com",
     port: 80
 };
