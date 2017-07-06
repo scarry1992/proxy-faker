@@ -3,15 +3,17 @@ let mime = require('mime');
 let { PROXY_HOST } = require('./config');
 
 function getExt(reqPath, contentTypeHeader) {
-    if ( mime.extension(contentTypeHeader) ) {
+    if ( typeof contentTypeHeader !== 'undefined' ) {
         return mime.extension(contentTypeHeader);
     }
-    if ( mime.extension(mime.lookup(reqPath)) !== 'bin' ) {
-        return mime.extension(mime.lookup(reqPath));
+    let extByReqPath = mime.extension(mime.lookup(reqPath));
+    if ( extByReqPath !== 'bin' ) {
+        return extByReqPath;
     }
-    if ( path.extname(reqPath).slice(1, reqPath.indexOf('?')) !== '' ) {
-        let ext = path.extname(reqPath);
-        return ext.slice(1, ext.indexOf('?'));
+    let ext = path.extname(reqPath);
+    let extByPathExtname = ext.slice(1, ext.indexOf('?'));
+    if ( extByPathExtname !== '' ) {
+        return extByPathExtname;
     }
     return 'bin';
 }
