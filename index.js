@@ -10,7 +10,18 @@ let url = require('url'),
 
 server.on('request', async (req, res) => {
     let body = [];
-    let request_options = Object.assign({}, PROXY_HOST, {path: req.url, protocol: `${PROXY_HOST.protocol}:`, method: req.method});
+    let request_options = Object.assign(
+        {},
+        PROXY_HOST,
+        {
+            path: req.url,
+            protocol: `${PROXY_HOST.protocol}:`,
+            method: req.method,
+            agentOptions: {
+                ciphers: PROXY_HOST.protocol === 'https'? 'DES-CBC3-SHA': ''
+            }
+        }
+    );
 
     req.on('error', () => {
         console.error(`Error!!!!!!!!!!!!!!`);
