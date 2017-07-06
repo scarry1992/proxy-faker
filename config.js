@@ -6,7 +6,8 @@ const PROXY_HOST = {
 const SERVICE_HOST = {
     protocol: "http",
     host: "0.0.0.0",
-    port: 8080
+    //port: 80 //docker-compose
+    port: 8080 //local
 };
 
 module.exports = {PROXY_HOST, SERVICE_HOST};
