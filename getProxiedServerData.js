@@ -19,10 +19,11 @@ function getExt(reqPath, contentTypeHeader) {
 }
 
 module.exports = (options) => {
-    let { path, method, body } = options;
+    let { path, method, body: reqBody } = options;
     let response_data = {
         method,
-        path
+        path,
+        reqBody
     };
 
     return new Promise((resolve, reject) => {
@@ -56,8 +57,8 @@ module.exports = (options) => {
             resolve(response_data);
         });
 
-        if (body) {
-            request.write(body);
+        if (reqBody) {
+            request.write(reqBody);
         }
         request.end();
     });

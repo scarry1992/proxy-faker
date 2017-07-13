@@ -5,10 +5,15 @@ let bluebird = require('bluebird'),
     mkdirp = bluebird.promisify(require('mkdirp')),
     { PROXY_HOST } = require('./config');
 
+function getName(reqBody, query) {
+    if (reqBody) { return reqBody; }
+    return query || "index";
+}
+
 async function getCache(data) {
-    let { path: reqPath, body, ext, method } = data,
+    let { path: reqPath, body, ext, method, reqBody } = data,
         paresedUrl = url.parse(reqPath),
-        name = paresedUrl.query || "index",
+        name = getName(reqBody, paresedUrl.query),
         pathToDir = path.join(__dirname, 'cache', PROXY_HOST.host, ...paresedUrl.pathname.split('/').filter(item => !!item), method),
         files = [],
         stat = '';
@@ -27,7 +32,7 @@ async function getCache(data) {
 
     if ( !files.includes(`${name}.${ext}`) ) {
         let stream = await fs.createWriteStream(path.join(pathToDir, `${name}.${ext}`));
-        stream.write(body.toString());
+        stream.write(body);
         stream.end();
         return body.toString();
     } else {
